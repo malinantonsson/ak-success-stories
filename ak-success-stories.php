@@ -10,13 +10,15 @@ function create_posttype() {
 	register_post_type( 'success-stories',
 	// CPT Options
 		array(
-			'labels' => array(
-				'name' => __( 'Success Stories' ),
+			'labels' 	=> 	array(
+				'name' 	=> 	__( 'Success Stories' ),
 				'singular_name' => __( 'Success story' )
 			),
-			'public' => true,
-			'has_archive' => true,
-			'rewrite' => array('slug' => 'success-stories')
+			'public' 	=> 	true,
+			'show_in_rest' 	=> 	true,
+        	'publicly_queryable' => true,
+			'has_archive' 	=> 	true,
+			'rewrite' 	=> 	array('slug' => 'success-stories')
 		)
 	);
 }
@@ -50,7 +52,9 @@ function successStoriesArchive_sc($atts) {
 	    	<ul class="success-archive__list">
 		    <?php foreach($custom_posts as $post) : setup_postdata($post); ?>
 		    	<li class="success-archive__item">
-		    		<a class="success-archive__link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+		    	<?php echo $post->ID; ?>
+		    		<a class="success-archive__link" href="<?php the_permalink(); ?>" 
+		    		id="<?php the_ID(); ?>"><?php the_title(); ?></a>
 		    		<span class="success-archive__date"><?php echo get_the_date('jS F Y'); ?></span>
 		    	</li>
 		        
@@ -77,7 +81,7 @@ function successStories_sc($atts) {
 
     foreach($custom_posts as $post) : setup_postdata($post);
     ?>
-    	<div class="success-story">
+    	<div class="success-story" data-behaviour="success-story">
 	        <h3 class="success-story__headline"><?php the_title(); ?></h3>
 	        
 	        <div class="success-story__content">
