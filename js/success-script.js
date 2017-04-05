@@ -16,7 +16,16 @@
 				evt.preventDefault();
 				var target = evt.target.id;
 				console.log(window.location);
-				var url = window.location.origin + '/ak-creative/api/get_posts/?post_id=' + target;
+				//http://localhost:8888/tutorial/wp-json/wp/v2/success-stories/105
+				var path = '';
+
+				if(window.location.pathname.indexOf('tutorial') > -1) {
+					path = '/tutorial';
+				} else if (window.pathname.indexOf('ak-creative') > -1) {
+					path = '/ak-creative';
+				}
+
+				var url = window.location.origin + path + '/wp-json/wp/v2/success-stories/' + target;
 				console.log(url);
 
 				$.get( url, function( data ) {
