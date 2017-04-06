@@ -49,17 +49,21 @@ function successStoriesArchive_sc($atts) {
     $custom_posts = get_posts($args);
     ?>
 	    <nav class="success-archive" data-behaviour="success-stories">
-	    	<ul class="success-archive__list">
-		    <?php foreach($custom_posts as $post) : setup_postdata($post); ?>
-		    	<li class="success-archive__item">
-		    	<?php echo $post->ID; ?>
-		    		<a class="success-archive__link" href="<?php the_permalink(); ?>" 
-		    		id="<?php the_ID(); ?>"><?php the_title(); ?></a>
-		    		<span class="success-archive__date"><?php echo get_the_date('jS F Y'); ?></span>
-		    	</li>
+	    	<div class="success-archive__list">
+		    <?php 
+		    	$index = 1;
+		    	foreach($custom_posts as $post) : setup_postdata($post); ?>
+	    		<a class="success-archive__item" slide="slide_<?php $index ?>" href="<?php the_permalink(); ?>" 
+	    		data-link="<?php echo $post->post_name; ?>"><?php the_title(); ?>
+
+	    			<span class="success-archive__date"><?php echo get_the_date('jS F Y'); ?></span>
+	    		</a>
 		        
-			<?php endforeach; wp_reset_postdata(); ?>
-			</ul>
+			<?php 
+			 $index++;
+			endforeach; wp_reset_postdata(); ?>
+			
+			</div>
 		</nav>
 	<?php
 }
@@ -73,38 +77,32 @@ function successStories_sc($atts) {
 
     $args = array(
     	'post_type' => 'success-stories', 
-    	'posts_per_page' => 1, 
+    	'posts_per_page' => 10, 
     	'order'=> 'DSC', 
     	'orderby' => 'date');
 
     $custom_posts = get_posts($args);
-
-    foreach($custom_posts as $post) : setup_postdata($post);
     ?>
-    	<div class="success-story" data-behaviour="success-story">
-	        <h3 class="success-story__headline"><?php the_title(); ?></h3>
-	        
-	        <div class="success-story__content">
-	        	<?php the_content(); ?>
-	        </div>
-	    </div>
-
-        <div class="success-story__nav">
-		    <?php 
-		    	$next_post = get_next_post();
-		    	$prev_post = get_previous_post(); 
-		    ?>
-	        <a class="success-story__nav-link success-story__nav-link--next"<?php if ( is_a( $next_post , 'WP_Post' ) ) : ?> href="<?php echo get_permalink( $next_post->ID ); ?>" title="link to <?php echo get_the_title( $next_post->ID ); ?>"<?php endif; ?>>
-				Next post
-			</a>
-			
-			<a class="success-story__nav-link success-story__nav-link--prev" <?php if ( is_a( $prev_post , 'WP_Post' ) ) : ?> href="<?php echo get_permalink( $prev_post->ID ); ?>" title="link to <?php echo get_the_title( $prev_post->ID ); ?>" <?php endif; ?>>
-					prev post
-			</a>
-		</div>
-    
+    <div class="success-stories">
+	    <?php
+		$index = 0;
+	    foreach($custom_posts as $post) : setup_postdata($post);
+	    ?>
+	    	<div class="success-story" id="<?php echo $post->post_name; ?>"
+	    		data-index="<?php echo $index ?>" 
+	    		data-behaviour="success-story">
+		        <h3 class="success-story__headline"><?php the_title(); ?></h3>
+		        
+		        <div class="success-story__content">
+		        	<?php the_content(); ?>
+		        </div>
+		    </div>
+	    
+	    <?php
+		$index++;
+	    endforeach; wp_reset_postdata(); ?>
+    </div>
     <?php
-    endforeach; wp_reset_postdata();
 	}
 
 ?>

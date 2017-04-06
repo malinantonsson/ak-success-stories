@@ -1,40 +1,56 @@
 (function(){
 	"use strict";
 
+	var target;
+
 	var $ = window.jQuery;
 
+	var hash = window.location.hash;
+	var startslide = 0;
 
-	var contentwrapper = document.querySelector('[data-behaviour=success-story]');
-	if(contentwrapper) {
-		var archive = document.querySelector('[data-behaviour=success-stories]');
-		var links = archive.querySelectorAll('.success-archive__link');
+	//get the hash, if it's a story update inital slide
+	if(hash) {
+		var story = $('.success-stories').find(hash);
 
-		for(var i = 0; i < links.length; i++) {
-			var link = links[i];
-
-			link.addEventListener('click', function(evt) {
-				evt.preventDefault();
-				var target = evt.target.id;
-				console.log(window.location);
-				//http://localhost:8888/tutorial/wp-json/wp/v2/success-stories/105
-				var path = '';
-
-				if(window.location.pathname.indexOf('tutorial') > -1) {
-					path = '/tutorial';
-				} else if (window.pathname.indexOf('ak-creative') > -1) {
-					path = '/ak-creative';
-				}
-
-				var url = window.location.origin + path + '/wp-json/wp/v2/success-stories/' + target;
-				console.log(url);
-
-				$.get( url, function( data ) {
-				  console.log(data);
-				})
-				.fail(function() {
-			    	alert( "error" );
-			  	});
-			});
-		}
+		if(story.length > 0 ) {
+			startslide = parseInt($(hash)[0].dataset['index']);
+		}		
 	}
+	
+
+	//disable links
+	$('.success-archive__item').on('click', function(evt) {
+	  evt.preventDefault();
+	}); 
+
+
+	$('.success-stories').slick({
+	  	slidesToShow: 1,
+	  	initialSlide: startslide,
+	  	slidesToScroll: 1,
+	  	arrows: true,
+	  	asNavFor: '.success-archive__list',
+  		adaptiveHeight: true
+	});
+
+	$('.success-archive__list').slick({
+	  	slidesToShow: 10,
+	  	slidesToScroll: 1,
+	  	initialSlide: startslide,
+	  	asNavFor: '.success-stories',
+	  	focusOnSelect: true,
+	  	vertical: true
+	});
+
+	//update url on change (both links & arrows)
+	$('.success-stories').on('afterChange', function(event, slick, currentSlide){   
+		var target = $('[data-slick-index=' + currentSlide + ']')[1].id;
+		  if(history.replaceState) {
+		    history.replaceState(null, null, '#' + target);
+		}
+		else {
+		    location.hash = target;
+		}
+	});
+
 })();
