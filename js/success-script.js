@@ -10,7 +10,7 @@
 
 	//get the hash, if it's a story update inital slide
 	if(hash) {
-		var story = $('.success-stories').find(hash);
+		var story = $('.onePage').find(hash);
 
 		if(story.length > 0 ) {
 			startslide = parseInt($(hash)[0].dataset['index']);
@@ -19,31 +19,34 @@
 	
 
 	//disable links
-	$('.success-archive__item').on('click', function(evt) {
+	$('.onePage-archive__item').on('click', function(evt) {
 	  evt.preventDefault();
 	}); 
 
 
-	$('.success-stories').slick({
+	$('.onePage').slick({
 	  	slidesToShow: 1,
 	  	initialSlide: startslide,
 	  	slidesToScroll: 1,
 	  	arrows: true,
-	  	asNavFor: '.success-archive__list',
-  		adaptiveHeight: true
+	  	asNavFor: '.onePage-archive__list',
+  		adaptiveHeight: true,
+  		appendArrows: '.onePage__bottom',
+  		prevArrow: '.onePage__button--prev',
+  		nextArrow: '.onePage__button--next'
 	});
 
-	$('.success-archive__list').slick({
-	  	slidesToShow: 10,
-	  	slidesToScroll: 1,
+	$('.onePage-archive__list').slick({
+	  	slidesToShow: 3,
+	  	slidesToScroll: 0,
 	  	initialSlide: startslide,
-	  	asNavFor: '.success-stories',
+	  	asNavFor: '.onePage',
 	  	focusOnSelect: true,
 	  	vertical: true
 	});
 
 	//update url on change (both links & arrows)
-	$('.success-stories').on('afterChange', function(event, slick, currentSlide){   
+	$('.onePage').on('afterChange', function(event, slick, currentSlide){   
 		var target = $('[data-slick-index=' + currentSlide + ']')[1].id;
 		  if(history.replaceState) {
 		    history.replaceState(null, null, '#' + target);
@@ -52,5 +55,63 @@
 		    location.hash = target;
 		}
 	});
+
+	function shareOnLinkedIn(href, title) {
+      var url = 'https://www.linkedin.com/shareArticle?mini=true&url=' + href + '&title=' + title;
+      window.open(url,'Share on LinkedIn','status = 1, height = 380, width = 500, resizable = 0');
+      return false;
+    }
+
+    function shareOnTwitter(href, title) {
+      var url = 'https://twitter.com/intent/tweet?text=' + title + ' ' + href;
+      window.open(url,'Twitter','status = 1, height = 380, width = 500, resizable = 0');
+      return false;
+    }
+
+    function shareOnFacebook(href) {
+      var url = 'https://www.facebook.com/sharer/sharer.php?u=' + href;
+
+      window.open(url,'facebook','status = 1, height = 380, width = 500, resizable = 0');
+      return false;
+    }
+
+	function socialShare() {
+      	var linkedInBtn = $('.onePage__button--linkedin');
+      	var twitterBtn = $('.onePage__button--twitter');
+      	var facebookBtn = $('.onePage__button--facebook');
+
+      	if (linkedInBtn ) {
+	        linkedInBtn.on('click', function(e) {
+	        	e.preventDefault();
+				var currentTitle = $('.onePage .slick-active').find('.onePage-post__headline').text();
+	          	
+	          	var url = window.location.href;
+	          	shareOnLinkedIn(url, currentTitle);
+	        });
+      	}
+
+      	
+      	if (twitterBtn ) {
+	        twitterBtn.on('click', function(e) {
+	        	e.preventDefault();
+				var currentTitle = $('.onePage .slick-active').find('.onePage-post__headline').text();
+	          	
+	          	var url = window.location.href;
+	          	shareOnTwitter(url, currentTitle);
+	        });
+      	}
+
+      	if (facebookBtn ) {
+	        facebookBtn.on('click', function(e) {
+	        	e.preventDefault();
+				var currentTitle = $('.onePage .slick-active').find('.onePage-post__headline').text();
+	          	
+	          	var url = window.location.href;
+	          	shareOnFacebook(url, currentTitle);
+	        });
+      	}
+	}
+
+	socialShare()
 
 })();

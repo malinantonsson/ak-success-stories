@@ -35,10 +35,13 @@ function add_success_script() {
 
 
 // Create the archive shortcodes
-add_shortcode("success-story-archive", "successStoriesArchive_sc");
+add_shortcode("onePage-archive", "onePageArchive_sc");
 
 // get all entries & order by date in dsc order
-function successStoriesArchive_sc($atts) {
+function onePageArchive_sc($atts) {
+	extract(shortcode_atts(array( "headline" => ''), $atts));
+	extract(shortcode_atts(array( "post_type" => ''), $atts));
+
     global $post;
 
     $args = array(
@@ -47,16 +50,19 @@ function successStoriesArchive_sc($atts) {
     	'orderby' => 'date');
 
     $custom_posts = get_posts($args);
+
     ?>
-	    <nav class="success-archive" data-behaviour="success-stories">
-	    	<div class="success-archive__list">
+    	<h4 class="onePage-archive__headline"><?php echo $headline; ?></h4> 
+	    <nav class="onePage-archive">
+	    	<div class="onePage-archive__list">
 		    <?php 
 		    	$index = 1;
 		    	foreach($custom_posts as $post) : setup_postdata($post); ?>
-	    		<a class="success-archive__item" slide="slide_<?php $index ?>" href="<?php the_permalink(); ?>" 
-	    		data-link="<?php echo $post->post_name; ?>"><?php the_title(); ?>
+	    		<a class="onePage-archive__item" slide="slide_<?php $index ?>" href="<?php the_permalink(); ?>" 
+	    		data-link="<?php echo $post->post_name; ?>">
+	    			<span class="onePage-archive__title"><?php the_title(); ?></span>
 
-	    			<span class="success-archive__date"><?php echo get_the_date('jS F Y'); ?></span>
+	    			<span class="onePage-archive__date"><?php echo get_the_date('jS F Y'); ?></span>
 	    		</a>
 		        
 			<?php 
@@ -70,9 +76,9 @@ function successStoriesArchive_sc($atts) {
 
 
 // Create the post shortcode
-add_shortcode("success-story-latest", "successStories_sc");
+add_shortcode("onePage-posts", "onePage_sc");
 
-function successStories_sc($atts) {
+function onePage_sc($atts) {
     global $post;
 
     $args = array(
@@ -83,25 +89,51 @@ function successStories_sc($atts) {
 
     $custom_posts = get_posts($args);
     ?>
-    <div class="success-stories">
-	    <?php
-		$index = 0;
-	    foreach($custom_posts as $post) : setup_postdata($post);
-	    ?>
-	    	<div class="success-story" id="<?php echo $post->post_name; ?>"
-	    		data-index="<?php echo $index ?>" 
-	    		data-behaviour="success-story">
-		        <h3 class="success-story__headline"><?php the_title(); ?></h3>
-		        
-		        <div class="success-story__content">
-		        	<?php the_content(); ?>
-		        </div>
-		    </div>
+    <div class="onePage-wrapper">
+	    <div class="onePage">
+		    <?php
+			$index = 0;
+		    foreach($custom_posts as $post) : setup_postdata($post);
+		    ?>
+		    	<div class="onePage-post" id="<?php echo $post->post_name; ?>"
+		    		data-index="<?php echo $index ?>" 
+		    		data-behaviour="onePage-post">
+			        <h3 class="onePage-post__headline"><?php the_title(); ?></h3>
+			        
+			        <div class="onePage-post__content">
+			        	<?php the_content(); ?>
+			        </div>
+			    </div>
+		    
+		    <?php
+			$index++;
+		    endforeach; wp_reset_postdata(); ?>
+	    </div>
+	    <div class="onePage__bottom">
+	    	<button class="onePage__button onePage__button--prev">
+	    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
+	    	</button>
+
+	    	<div class="onePage__social"> 
+	    		<button class="onePage__button onePage__button--linkedin">
+	    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
+	    		</button>
+
+	    		<button class="onePage__button onePage__button--twitter">
+	    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
+	    		</button>
+
+	    		<button class="onePage__button onePage__button--facebook">
+	    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
+	    		</button>
+	    	</div>
+
+	    	<button class="onePage__button onePage__button--next">
+	    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
+	    	</button>
+	    </div>
 	    
-	    <?php
-		$index++;
-	    endforeach; wp_reset_postdata(); ?>
-    </div>
+	</div>
     <?php
 	}
 
