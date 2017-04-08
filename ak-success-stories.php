@@ -50,28 +50,33 @@ function onePageArchive_sc($atts) {
     	'orderby' => 'date');
 
     $custom_posts = get_posts($args);
+    $output = '';
 
-    ?>
-    	<h4 class="onePage-archive__headline"><?php echo $headline; ?></h4> 
-	    <nav class="onePage-archive">
-	    	<div class="onePage-archive__list">
-		    <?php 
-		    	$index = 1;
-		    	foreach($custom_posts as $post) : setup_postdata($post); ?>
-	    		<a class="onePage-archive__item" slide="slide_<?php $index ?>" href="<?php the_permalink(); ?>" 
-	    		data-link="<?php echo $post->post_name; ?>">
-	    			<span class="onePage-archive__title"><?php the_title(); ?></span>
+    $output .= 	'
+    	<h4 class="onePage-archive__headline">'.$headline.'</h4> 
+    	<nav class="onePage-archive">
+	    	<div class="onePage-archive__list">';
 
-	    			<span class="onePage-archive__date"><?php echo get_the_date('jS F Y'); ?></span>
-	    		</a>
-		        
-			<?php 
-			 $index++;
-			endforeach; wp_reset_postdata(); ?>
+	    	$index = 1;
+	    	foreach($custom_posts as $post) : setup_postdata($post);
+		    	$slug = basename(get_permalink());
+		    	$link = get_the_permalink();
+		    	$title = get_the_title();
+		    	$date = get_the_date('jS F Y');
+
+		    	$output .= 	
+		    		'<a class="onePage-archive__item" slide="slide_'.$index.'" href="'.$link.'" 
+		    		data-link="'.$slug.'">
+		    			<span class="onePage-archive__title">'.$title.'</span>
+
+		    			<span class="onePage-archive__date">'.$date.'</span>
+		    		</a>'; 
+				 $index++;
+			endforeach; wp_reset_postdata();
 			
-			</div>
-		</nav>
-	<?php
+			$output .= '</div>';
+		$output .= '</nav>'; 
+	return $output;
 }
 
 
