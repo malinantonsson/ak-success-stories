@@ -83,6 +83,13 @@ function onePageArchive_sc($atts) {
 // Create the post shortcode
 add_shortcode("onePage-posts", "onePage_sc");
 
+function ak_the_content( $more_link_text = null, $strip_teaser = false) {
+    $content = get_the_content( $more_link_text, $strip_teaser );
+    $content = apply_filters( 'the_content', $content );
+    $content = str_replace( ']]>', ']]&gt;', $content );
+    return $content;
+}
+
 function onePage_sc($atts) {
     global $post;
 
@@ -103,7 +110,7 @@ function onePage_sc($atts) {
 		    foreach($custom_posts as $post) : setup_postdata($post);
 		    	$slug = basename(get_permalink());
 		    	$title = get_the_title();
-		    	$content = get_the_content();
+		    	$content = ak_the_content();
 		    	$output .= 	'
 		    	<div class="onePage-post" id="'.$slug.'"
 		    		data-index="'.$index.'" 
