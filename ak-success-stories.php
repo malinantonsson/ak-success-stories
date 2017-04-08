@@ -93,53 +93,57 @@ function onePage_sc($atts) {
     	'orderby' => 'date');
 
     $custom_posts = get_posts($args);
-    ?>
-    <div class="onePage-wrapper">
-	    <div class="onePage">
-		    <?php
-			$index = 0;
-		    foreach($custom_posts as $post) : setup_postdata($post);
-		    ?>
-		    	<div class="onePage-post" id="<?php echo $post->post_name; ?>"
-		    		data-index="<?php echo $index ?>" 
-		    		data-behaviour="onePage-post">
-			        <h3 class="onePage-post__headline"><?php the_title(); ?></h3>
-			        
-			        <div class="onePage-post__content">
-			        	<?php the_content(); ?>
-			        </div>
-			    </div>
+    $output = '';
+
+	$index = 0;
+    $output .= 	'
+    	<div class="onePage-wrapper">
+	    	<div class="onePage">'; 
 		    
-		    <?php
+		    foreach($custom_posts as $post) : setup_postdata($post);
+		    	$slug = basename(get_permalink());
+		    	$title = get_the_title();
+		    	$content = get_the_content();
+		    	$output .= 	'
+		    	<div class="onePage-post" id="'.$slug.'"
+		    		data-index="'.$index.'" 
+		    		data-behaviour="onePage-post">
+			        <h3 class="onePage-post__headline">
+			        	'.$title.'</h3>
+			        
+			        <div class="onePage-post__content">'
+			        	.$content.
+			        '</div>
+			    </div>';
+
 			$index++;
-		    endforeach; wp_reset_postdata(); ?>
-	    </div>
-	    <div class="onePage__bottom">
-	    	<button class="onePage__button onePage__button--prev">
-	    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
-	    	</button>
+		    endforeach; wp_reset_postdata();
+	    	$output .= 	'</div>
+		    <div class="onePage__bottom">
+		    	<button class="onePage__button onePage__button--prev">
+		    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
+		    	</button>
 
-	    	<div class="onePage__social"> 
-	    		<button class="onePage__button onePage__button--linkedin">
-	    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
-	    		</button>
+		    	<div class="onePage__social"> 
+		    		<button class="onePage__button onePage__button--linkedin">
+		    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
+		    		</button>
 
-	    		<button class="onePage__button onePage__button--twitter">
-	    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
-	    		</button>
+		    		<button class="onePage__button onePage__button--twitter">
+		    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
+		    		</button>
 
-	    		<button class="onePage__button onePage__button--facebook">
-	    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
-	    		</button>
-	    	</div>
+		    		<button class="onePage__button onePage__button--facebook">
+		    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
+		    		</button>
+		    	</div>
 
-	    	<button class="onePage__button onePage__button--next">
-	    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
-	    	</button>
-	    </div>
+		    	<button class="onePage__button onePage__button--next">
+		    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
+		    	</button>
+		    </div>';
 	    
-	</div>
-    <?php
+		$output .= 	'</div>';
+	return $output;
 	}
-
 ?>
