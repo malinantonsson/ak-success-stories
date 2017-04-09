@@ -1,36 +1,13 @@
 <?php
 /*
-Plugin Name: Success stories for AK Creative
-Description: Used to dislay success stories
+Plugin Name: One Page post plugin for AK Creative
+Description: Used to dislay custom post with a one page navigation (e.g success stories)
 */
 
-// Register the new posttype
-function create_posttype() {
-
-	register_post_type( 'success-stories',
-	// CPT Options
-		array(
-			'labels' 	=> 	array(
-				'name' 	=> 	__( 'Success Stories' ),
-				'singular_name' => __( 'Success story' )
-			),
-			'public' 	=> 	true,
-			'show_in_rest' 	=> 	true,
-        	'publicly_queryable' => true,
-			'has_archive' 	=> 	true,
-			'rewrite' 	=> 	array('slug' => 'success-stories')
-		)
-	);
-}
-// Hooking up our function to theme setup
-add_action( 'init', 'create_posttype' );
-
-
-
 // Enqueue styles and scripts
-add_action( 'wp_enqueue_scripts', 'add_success_script' );
-function add_success_script() { 
-	wp_enqueue_script( 'ak-success-stories', plugins_url('ak-success-stories/js/success-script.js'), array ( 'jquery' ), 1.1, true); 
+add_action( 'wp_enqueue_scripts', 'add_onePage_script' );
+function add_onePage_script() { 
+	wp_enqueue_script( 'ak-onePage-script', plugins_url('ak-one-page/js/onePage-script.js'), array ( 'jquery' ), 1.1, true); 
 }
 
 
@@ -45,7 +22,7 @@ function onePageArchive_sc($atts) {
     global $post;
 
     $args = array(
-    	'post_type' => 'success-stories', 
+    	'post_type' => $post_type, 
     	'order'=> 'DSC', 
     	'orderby' => 'date');
 
@@ -91,10 +68,11 @@ function ak_the_content( $more_link_text = null, $strip_teaser = false) {
 }
 
 function onePage_sc($atts) {
+	extract(shortcode_atts(array( "post_type" => ''), $atts));
     global $post;
 
     $args = array(
-    	'post_type' => 'success-stories', 
+    	'post_type' => $post_type, 
     	'posts_per_page' => 10, 
     	'order'=> 'DSC', 
     	'orderby' => 'date');
