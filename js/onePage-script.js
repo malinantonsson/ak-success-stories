@@ -16,7 +16,6 @@
 			startslide = parseInt($(hash)[0].dataset['index']);
 		}		
 	}
-	
 
 	//disable links
 	$('.onePage-archive__item').on('click', function(evt) {
@@ -37,8 +36,8 @@
 	});
 
 	$('.onePage-archive__list').slick({
-	  	slidesToShow: 3,
-	  	slidesToScroll: 0,
+	  	slidesToShow: $('.onePage-archive__item').length,
+	  	slidesToScroll: 1,
 	  	initialSlide: startslide,
 	  	asNavFor: '.onePage',
 	  	focusOnSelect: true,
