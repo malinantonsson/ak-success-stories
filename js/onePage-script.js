@@ -42,7 +42,8 @@
 	  	initialSlide: startslide,
 	  	asNavFor: '.onePage',
 	  	focusOnSelect: true,
-	  	vertical: true
+	  	vertical: true,
+	  	arrows: false
 	});
 
 	//update url on change (both links & arrows)
