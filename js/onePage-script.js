@@ -35,6 +35,8 @@
   		nextArrow: '.onePage__button--next'
 	});
 
+	console.log('to show: ' + $('.onePage-archive__item').length);
+
 	$('.onePage-archive__list').slick({
 	  	slidesToShow: $('.onePage-archive__item').length,
 	  	slidesToScroll: 1,
