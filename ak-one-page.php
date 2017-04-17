@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: One Page post plugin for AK Creative
-Description: Used to dislay custom post with a one page navigation (e.g success stories)
+Description: Used to dislay custom post with a one page navigation (e.g success stories). Shortcode for posts: [onePage-posts post_type="posttype_name"]. Shortcode for archive : [onePage-archive headline="The Success Archive" post_type="custom_post"]. 
 */
 
 // Enqueue styles and scripts
