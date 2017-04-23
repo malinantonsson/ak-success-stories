@@ -35,8 +35,6 @@
   		nextArrow: '.onePage__button--next'
 	});
 
-	console.log('to show: ' + $('.onePage-archive__item').length);
-
 	$('.onePage-archive__list').slick({
 	  	slidesToShow: $('.onePage-archive__item').length,
 	  	slidesToScroll: 1,
@@ -49,7 +47,7 @@
 
 	//update url on change (both links & arrows)
 	$('.onePage').on('afterChange', function(event, slick, currentSlide){   
-		var target = $('[data-slick-index=' + currentSlide + ']')[1].id;
+		var target = $('.onePage [data-slick-index=' + currentSlide + ']')[0].id;
 		  if(history.replaceState) {
 		    history.replaceState(null, null, '#' + target);
 		}

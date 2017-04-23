@@ -30,9 +30,9 @@ function onePageArchive_sc($atts) {
     $output = '';
 
     $output .= 	'
-    	<h4 class="onePage-archive__headline">'.$headline.'</h4> 
-    	<nav class="onePage-archive">
-	    	<div class="onePage-archive__list">';
+    	<h4 class="ak-archive__headline onePage-archive__headline">'.$headline.'</h4> 
+    	<nav class="ak-archive onePage-archive">
+	    	<div class="ak-archive__list onePage-archive__list">';
 
 	    	$index = 1;
 	    	foreach($custom_posts as $post) : setup_postdata($post);
@@ -42,11 +42,11 @@ function onePageArchive_sc($atts) {
 		    	$date = get_the_date('jS F Y');
 
 		    	$output .= 	
-		    		'<a class="onePage-archive__item" slide="slide_'.$index.'" href="'.$link.'" 
+		    		'<a class="ak-archive__item onePage-archive__item" slide="slide_'.$index.'" href="'.$link.'" 
 		    		data-link="'.$slug.'">
-		    			<span class="onePage-archive__title">'.$title.'</span>
+		    			<span class="ak-archive__title onePage-archive__title">'.$title.'</span>
 
-		    			<span class="onePage-archive__date">'.$date.'</span>
+		    			<span class="ak-archive__date onePage-archive__date">'.$date.'</span>
 		    		</a>'; 
 				 $index++;
 			endforeach; wp_reset_postdata();
@@ -82,21 +82,21 @@ function onePage_sc($atts) {
 
 	$index = 0;
     $output .= 	'
-    	<div class="onePage-wrapper">
-	    	<div class="onePage">'; 
+    	<div class="ak-post-wrapper onePage-wrapper">
+	    	<div class="ak-posts onePage">'; 
 		    
 		    foreach($custom_posts as $post) : setup_postdata($post);
 		    	$slug = basename(get_permalink());
 		    	$title = get_the_title();
 		    	$content = ak_the_content();
 		    	$output .= 	'
-		    	<div class="onePage-post" id="'.$slug.'"
+		    	<div class="ak-post onePage-post" id="'.$slug.'"
 		    		data-index="'.$index.'" 
 		    		data-behaviour="onePage-post">
-			        <h3 class="onePage-post__headline">
+			        <h3 class="ak-post__headline onePage-post__headline">
 			        	'.$title.'</h3>
 			        
-			        <div class="onePage-post__content">'
+			        <div class="ak-post__content onePage-post__content">'
 			        	.$content.
 			        '</div>
 			    </div>';
@@ -104,27 +104,27 @@ function onePage_sc($atts) {
 			$index++;
 		    endforeach; wp_reset_postdata();
 	    	$output .= 	'</div>
-		    <div class="onePage__bottom">
-		    	<button class="onePage__button onePage__button--prev">
-		    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
+		    <div class="ak-post-nav">
+		    	<button class="ak-post-nav__button onePage__button--prev">
+		    	 	<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
 		    	</button>
 
 		    	<div class="onePage__social"> 
-		    		<button class="onePage__button onePage__button--linkedin">
-		    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
+		    		<button class="ak-post-nav__button onePage__button--linkedin">
+		    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
 		    		</button>
 
-		    		<button class="onePage__button onePage__button--twitter">
-		    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
+		    		<button class="ak-post-nav__button onePage__button--twitter">
+		    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
 		    		</button>
 
-		    		<button class="onePage__button onePage__button--facebook">
-		    			<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
+		    		<button class="ak-post-nav__button onePage__button--facebook">
+		    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
 		    		</button>
 		    	</div>
 
-		    	<button class="onePage__button onePage__button--next">
-		    	 	<svg class="ak-icon onePage__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
+		    	<button class="ak-post-nav__button onePage__button--next">
+		    	 	<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
 		    	</button>
 		    </div>';
 	    
