@@ -105,27 +105,31 @@ function onePage_sc($atts) {
 		    endforeach; wp_reset_postdata();
 	    	$output .= 	'</div>
 		    <div class="ak-post-nav">
-		    	<button class="ak-post-nav__button onePage__button--prev">
-		    	 	<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
-		    	</button>
+			    	
+			    <span class="ak-post-nav__label">Share</span>
+		    	<div class="ak-post-nav__inner">
+			    	<button class="ak-post-nav__button onePage__button--prev">
+			    	 	<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-left"></use></svg>
+			    	</button>
 
-		    	<div class="onePage__social"> 
-		    		<button class="ak-post-nav__button onePage__button--linkedin">
-		    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
-		    		</button>
+			    	<div class="onePage__social"> 
+			    		<button class="ak-post-nav__button onePage__button--linkedin">
+			    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:linkedin"></use></svg>
+			    		</button>
 
-		    		<button class="ak-post-nav__button onePage__button--twitter">
-		    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
-		    		</button>
+			    		<button class="ak-post-nav__button onePage__button--twitter">
+			    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:twitter"></use></svg>
+			    		</button>
 
-		    		<button class="ak-post-nav__button onePage__button--facebook">
-		    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
-		    		</button>
-		    	</div>
+			    		<button class="ak-post-nav__button onePage__button--facebook">
+			    			<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:facebook"></use></svg>
+			    		</button>
+			    	</div>
 
-		    	<button class="ak-post-nav__button onePage__button--next">
-		    	 	<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
-		    	</button>
+			    	<button class="ak-post-nav__button onePage__button--next">
+			    	 	<svg class="ak-icon ak-post-nav__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/wp-content/plugins/wp-svg-spritemap-master/defs.svg#:scroll-right"></use></svg>
+			    	</button>
+			    </div>
 		    </div>';
 	    
 		$output .= 	'</div>';
